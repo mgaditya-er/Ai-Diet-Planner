@@ -1,5 +1,6 @@
 import { Dimensions, Image, Text, View } from "react-native";
 import Colors from "../shared/Colors";
+import Button from "../components/shared/Button";
 export default function Index() {
   return (
     <View
@@ -23,6 +24,7 @@ export default function Index() {
           width: "100%",
           display: "flex",
           alignItems: "center",
+          padding: 20,
         }}
       >
         <Image
@@ -43,15 +45,32 @@ export default function Index() {
           Ai Diet Planner
         </Text>
 
-        <Text style={{
-          textAlign :'center',
-          marginHorizontal : 20,
-          fontSize : 20,
-          color : Colors.WHITE,
-          marginTop : 15,
-          opacity :0.8
-        }}>Craft delicious , Healthy ,mean plans tailored just for you.Achieve your goal with ease!
-</Text>
+        <Text
+          style={{
+            textAlign: "center",
+            marginHorizontal: 20,
+            fontSize: 20,
+            color: Colors.WHITE,
+            marginTop: 15,
+            opacity: 0.8,
+          }}
+        >
+          Craft delicious , Healthy ,mean plans tailored just for you.Achieve
+          your goal with ease!
+        </Text>
+      </View>
+      <View style={{
+        position : 'absolute',
+        width : '100%',
+        bottom : 25,
+        padding : 20
+
+      }}>
+        <Button title={'Get Started'}
+        onPress={()=>{
+          console.log("Clicked")
+        }}
+        />
       </View>
     </View>
   );
