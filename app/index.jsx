@@ -1,7 +1,32 @@
 import { Dimensions, Image, Text, View } from "react-native";
 import Colors from "../shared/Colors";
 import Button from "../components/shared/Button";
+import { useRouter } from "expo-router";
+import { onAuthStateChanged } from "firebase/auth";
+import { UserContext } from "../context/UserContext";
+import { api } from "../convex/_generated/api";
+
+import { auth } from "../service/FirebaseConfig";
+import { useContext, useEffect } from "react";
+import { useConvex } from "convex/react";
+
 export default function Index() {
+  const router = useRouter();
+  const { user, setUser } = useContext(UserContext);
+  const convex = useConvex();
+  useEffect(()=>{
+    const unsubscribe=  onAuthStateChanged(auth, async (userInfo) => {
+      console.log(userInfo?.email);
+      const userData = await convex.query(api.Users.GetUser, {
+        email: userInfo?.email,
+      });
+      console.log(userData);
+      setUser(userData)
+    });
+    return ()=>unsubscribe();
+  },[])
+
+ 
   return (
     <View
       style={{
@@ -59,17 +84,17 @@ export default function Index() {
           your goal with ease!
         </Text>
       </View>
-      <View style={{
-        position : 'absolute',
-        width : '100%',
-        bottom : 25,
-        padding : 20
-
-      }}>
-        <Button title={'Get Started'}
-        onPress={()=>{
-          console.log("Clicked")
+      <View
+        style={{
+          position: "absolute",
+          width: "100%",
+          bottom: 25,
+          padding: 20,
         }}
+      >
+        <Button
+          title={"Get Started"}
+          onPress={() => router.push("/auth/SignIn")}
         />
       </View>
     </View>
