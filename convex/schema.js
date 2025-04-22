@@ -7,7 +7,11 @@ export default defineSchema({
         email:v.string(),
         picture:v.optional(v.string()),
         subscriptionId:v.optional(v.string()),
-        credits:v.number()
+        credits:v.number(),
+        height: v.optional(v.float64()),
+        weight: v.optional(v.float64()),
+        gender: v.optional(v.string()),
+        goal: v.optional(v.string()),
 
     })
 })
