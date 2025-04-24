@@ -1,9 +1,17 @@
 import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 
-export default function Custom({placeholder,password=false,onChangeText}) {
+export default function Custom({placeholder,password=false,onChangeText,label=''}) {
   return (
-    <View>
+    <View style={{
+      marginTop :15,
+      width : '100%'
+    }}>
+      <Text style={{
+        marginTop :15,
+        fontWeight:'medium',
+        fontSize :18
+      }}>{label}</Text>
        <TextInput placeholder={placeholder}
        secureTextEntry = {password}
        onChangeText={(value)=>{onChangeText(value)}}
@@ -14,7 +22,7 @@ export default function Custom({placeholder,password=false,onChangeText}) {
             fontSize: 18,
             paddingVertical : 20,
             width : '100%',
-            marginTop :15
+            marginTop :5
        }}
        />
     </View>
