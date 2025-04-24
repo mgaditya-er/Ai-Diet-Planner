@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Custom from "../../components/shared/Custom";
 import Colors from "../../shared/Colors";
 import { HugeiconsIcon } from "@hugeicons/react-native";
@@ -12,6 +12,11 @@ import {
   PlusSignSquareIcon,
   WeightScaleIcon,
 } from "@hugeicons/core-free-icons";
+import {api} from '../../convex/_generated/api'
+import { mutation } from "../../convex/_generated/server";
+import {UserContext} from '../../context/UserContext'
+import {useRouter} from 'expo-router'
+import { useMutation } from 'convex/react';
 
 export default function Preferance() {
   const [weight, setWeight] = useState();
@@ -20,7 +25,7 @@ export default function Preferance() {
   const [goal, setGoal] = useState();
   const isSelected = (value) => gender === value;
   const isGoalSelected = (value) => goal === value;
-
+  const router=useRouter();
   const genderOptions = [
     { label: "Male", icon: MaleSymbolIcon, color: "#4a90e2" },
     { label: "Female", icon: FemaleSymbolIcon, color: "#E24ADD" },
@@ -46,14 +51,30 @@ export default function Preferance() {
       color: "#4a90e2",
     },
   ];
-
-
-  const OnContinue=()=>{
+  const {user,setUser} =useContext(UserContext)
+  const UpdateUserPref=useMutation(api.Users.UpdateUserPref)
+  const OnContinue=async ()=>{
     if(!weight || !height || !gender || !goal)
     {
       Alert.alert('Fill all Details','Enter all the details to Continue');
       return;
     }
+    const data={
+      uid:user?._id,
+      weight:weight,
+      height:height,
+      goal:goal,
+      gender:gender
+    }
+    const result = await UpdateUserPref({
+      ...data
+    })
+    setUser(prev=>({
+      ...prev,
+      ...data
+    }))
+    console.log(result)
+    router.replace('/(tabs)/Home')
   }
   return (
     <View
