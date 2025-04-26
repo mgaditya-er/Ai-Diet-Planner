@@ -17,7 +17,8 @@ import { mutation } from "../../convex/_generated/server";
 import {UserContext} from '../../context/UserContext'
 import {useRouter} from 'expo-router'
 import { useMutation } from 'convex/react';
-
+import { CalculateCaloriesAI } from "../../service/AiModel";
+import Prompt from "../../shared/Prompt"
 export default function Preferance() {
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
@@ -59,15 +60,26 @@ export default function Preferance() {
       Alert.alert('Fill all Details','Enter all the details to Continue');
       return;
     }
-    const data={
+  const data={
       uid:user?._id,
       weight:weight,
       height:height,
       goal:goal,
       gender:gender
     }
+// Calculate Calories and protien using AI
+    const PROMPT = JSON.stringify(data)+Prompt.CALORIES_PROMPT
+    console.log(PROMPT)
+    const AIResult = await CalculateCaloriesAI(PROMPT);
+    console.log(AIResult.choices[0].message.content)
+
+    const AIResp=AIResult.choices[0].message.content;
+    const JSONContent=JSON.parse(AIResp.replace('```json','').replace('```',''));
+    console.log(JSONContent)
+  
     const result = await UpdateUserPref({
-      ...data
+      ...data,
+      ...JSONContent
     })
     setUser(prev=>({
       ...prev,
