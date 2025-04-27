@@ -19,13 +19,13 @@
 import axios from 'axios';
 
 const API_KEY = process.env.EXPO_PUBLIC_OPENROUTER_API_KEY;
-
+const AIMODELNAME ="google/gemini-2.0-flash-lite-001"
 export const CalculateCaloriesAI = async (PROMPT) => {
   try {
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
-        model: 'google/gemini-2.0-flash-lite-001',
+        model: AIMODELNAME,
         messages: [{ role: 'user', content: PROMPT }],
       },
       {
@@ -42,3 +42,27 @@ export const CalculateCaloriesAI = async (PROMPT) => {
     throw error;
   }
 };
+
+export const GenerateRecipeOptionsAiModel = async (PROMPT) => {
+  try {
+    const response = await axios.post(
+      'https://openrouter.ai/api/v1/chat/completions',
+      {
+        model: AIMODELNAME,
+        messages: [{ role: 'user', content: PROMPT }],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('AI API Error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
