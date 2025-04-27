@@ -16,5 +16,12 @@ export default defineSchema({
         proteins:v.optional(v.number())
 
 
+    }),
+    recipes:defineTable({
+        jsonData:v.any(),
+        uid:v.id('users'),
+        imageUrl:v.string(),
+        recipeName:v.any()
+
     })
 })
