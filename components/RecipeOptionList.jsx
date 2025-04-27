@@ -1,28 +1,40 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Colors from '../shared/Colors'
 import Prompt from '../shared/Prompt'
 import LoadingDialog from './LoadingDialog'
-import { GenerateRecipeOptionsAiModel } from '../service/AiModel'
-
+import { GenerateRecipeImage, GenerateRecipeOptionsAiModel } from '../service/AiModel'
+import {useMutation} from 'convex/react'
+import {api} from './../convex/_generated/api'
+import {UserContext} from './../context/UserContext'
 export default function RecipeOptionList({recipeOption}) {
     const [loading,setLoading]=useState(false);
-
+    const CreateRecipe=useMutation(api.Recipes.CreateRecipe);
+    const {user}=useContext(UserContext)
     const onRecipeOptionSelect=async(recipe)=>{
         setLoading(true)
         const PROMPT = "RecipeName: "+recipe?.recipeName+" Description: "+recipe?.description+Prompt.GENERATE_COMPLETE_RECIPE_PROMPT
         console.log(PROMPT)
         try {
             
-            const result = await GenerateRecipeOptionsAiModel(PROMPT)
-        
-        const extractJSON=result.choices[0].message.content;
-          const JSONContent=JSON.parse(extractJSON.replace('```json','').replace('```',''));
-          console.log(JSONContent);
-          setLoading(false)
-        } catch (error) {
-            setLoading(false)
-            console.log(error)
+                const result = await GenerateRecipeOptionsAiModel(PROMPT)
+
+                const extractJSON=result.choices[0].message.content;
+                const JSONContent=JSON.parse(extractJSON.replace('```json','').replace('```',''));
+                console.log(JSONContent);
+                const aiImageResp = await GenerateRecipeImage(JSONContent?.imagePrompt)
+                console.log(aiImageResp?.data?.image);
+                const saveRecipeResult = await CreateRecipe({
+                  jsonData : JSONContent,
+                  imageUrl : aiImageResp?.data?.image,
+                  recipeName : JSONContent?.recipeName,
+                  uid: user?._id
+                })
+                console.log(saveRecipeResult)
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                console.log(error)
         }
           
     }
