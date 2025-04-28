@@ -7,10 +7,12 @@ import { GenerateRecipeImage, GenerateRecipeOptionsAiModel } from '../service/Ai
 import {useMutation} from 'convex/react'
 import {api} from './../convex/_generated/api'
 import {UserContext} from './../context/UserContext'
+import { useRouter } from 'expo-router'
 export default function RecipeOptionList({recipeOption}) {
     const [loading,setLoading]=useState(false);
     const CreateRecipe=useMutation(api.Recipes.CreateRecipe);
-    const {user}=useContext(UserContext)
+    const {user}=useContext(UserContext);
+    const router = useRouter();
     const onRecipeOptionSelect=async(recipe)=>{
         setLoading(true)
         const PROMPT = "RecipeName: "+recipe?.recipeName+" Description: "+recipe?.description+Prompt.GENERATE_COMPLETE_RECIPE_PROMPT
@@ -32,6 +34,10 @@ export default function RecipeOptionList({recipeOption}) {
                 })
                 console.log(saveRecipeResult)
                 setLoading(false)
+                router.push({
+                  pathname: '/recipe-detail',
+                  params: { recipeId: saveRecipeResult }
+                });
             } catch (error) {
                 setLoading(false)
                 console.log(error)
