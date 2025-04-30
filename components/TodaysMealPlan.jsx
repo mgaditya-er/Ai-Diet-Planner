@@ -9,8 +9,11 @@ import {api} from '../convex/_generated/api'
 import moment from 'moment'
 import { UserContext } from '../context/UserContext';
 import MealPlanCard from './MealPlanCard';
+import { RefreshDataContext } from '../context/RefreshDataContext';
 export default function TodaysMealPlan() {
     const [mealPLan,setMealPlan]=useState();
+    // const {refreshData,setRefreshData}= useContext(RefreshDataContext)
+    
     const convex=useConvex();
     const {user}=useContext(UserContext);
     
@@ -62,7 +65,7 @@ export default function TodaysMealPlan() {
               <FlatList
               data={mealPLan}
               renderItem={({item})=>(
-                <MealPlanCard mealPlanInfo={item}/>
+                <MealPlanCard mealPlanInfo={item} />
               )}
               />
             </View>
