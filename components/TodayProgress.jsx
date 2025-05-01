@@ -89,21 +89,28 @@ export default function TodayProgress() {
         You'r doing Great!
       </Text>
 
-      <View style={{
-        backgroundColor : Colors.GREY,
-        height : 10,
-        borderRadius : 99,
-        marginTop : 15,
-        opacity :0.9
-      }} >
-        <View style={{
-        backgroundColor : Colors.PRIMARY,
-        height : 10,
-        borderRadius : 99,
-        width : '60%',
-        
-      }}></View>
-      </View>
+      <View
+  style={{
+    backgroundColor: Colors.GREY,
+    height: 10,
+    borderRadius: 99,
+    marginTop: 15,
+    overflow: "hidden",
+  }}
+>
+  <View
+    style={{
+      backgroundColor: Colors.PRIMARY,
+      height: 10,
+      width: `${
+        user?.calories
+          ? Math.min((totalCaloriesConsumed / user.calories) * 100, 100)
+          : 0
+      }%`,
+    }}
+  />
+</View>
+
 
       <View style={{
         display : 'flex',

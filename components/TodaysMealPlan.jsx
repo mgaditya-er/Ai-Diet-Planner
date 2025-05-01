@@ -10,19 +10,19 @@ import moment from 'moment'
 import { UserContext } from '../context/UserContext';
 import MealPlanCard from './MealPlanCard';
 import { RefreshDataContext } from '../context/RefreshDataContext';
-export default function TodaysMealPlan() {
+export default function TodaysMealPlan({selectedDate}) {
     const [mealPLan,setMealPlan]=useState();
-    // const {refreshData,setRefreshData}= useContext(RefreshDataContext)
-    
+    const {refreshData,setRefreshData}= useContext(RefreshDataContext)
+    setRefreshData(selectedDate);
     const convex=useConvex();
     const {user}=useContext(UserContext);
     
     useEffect(()=>{
       user && GetTodaysMealPlan();
-    },[user])
+    },[user,refreshData])
     const GetTodaysMealPlan=async ()=>{
       const result=await convex.query(api.MealPlan.GetTodaysMealPlan,{
-        date:moment().format('DD/MM/YYYY'),
+        date:selectedDate ?? moment().format('DD/MM/YYYY'),
         uid:user?._id
       });
       console.log(result);

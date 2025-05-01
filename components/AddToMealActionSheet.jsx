@@ -8,6 +8,7 @@ import Button from './shared/Button';
 import { useMutation } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { UserContext } from "../context/UserContext";
+import DateSelectionCard from './DateSelectionCard';
 
 export default function AddToMealActionSheet({resipeIntro,hideActionSheet}) {
     const [dateList,setDateList]=useState([]);
@@ -71,6 +72,9 @@ export default function AddToMealActionSheet({resipeIntro,hideActionSheet}) {
         fontWeight : 'bold',
         textAlign : 'center'
       }}>Add to Meal</Text>
+
+
+      <DateSelectionCard SetSelectedDate={SetSelectedDate}/>
         <Text style={{
         fontSize : 18,
         fontWeight : 'bold',
