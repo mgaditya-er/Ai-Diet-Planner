@@ -11,10 +11,16 @@ import ActionSheet from 'react-native-actions-sheet';
 import AddToMealActionSheet from '../../components/AddToMealActionSheet';
 export default function RecipeDetail() {
   const { recipeId } = useLocalSearchParams();
-  console.log('Received recipeId:', recipeId);  // Now it should print correctly!
-  const resipeDetail = useQuery(api.Recipes.GetRecipeById,{
-    id:recipeId == undefined || recipeId
-  });
+
+const validRecipeId = typeof recipeId === 'string' && recipeId !== 'undefined' ? recipeId : undefined;
+
+const resipeDetail = useQuery(
+  api.Recipes.GetRecipeById,
+  validRecipeId ? { id: validRecipeId } : undefined
+);
+
+
+
   const actionSheetRef = useRef(null);
   return (
     <FlatList 

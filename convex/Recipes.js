@@ -20,12 +20,21 @@ export const CreateRecipe=mutation({
     }
 })
 
-export const GetRecipeById=query({
-    args:{
-        id:v.id('recipes')
+export const GetRecipeById = query({
+    args: {
+      id: v.optional(v.id('recipes'))
     },
-    handler:async(ctx,args)=>{
-        const result=await ctx.db.get(args.id);
-        return result;
+    handler: async (ctx, args) => {
+      if (!args.id) return null;  // Gracefully return null
+      return await ctx.db.get(args.id);
     }
-})
+  });
+  
+
+export const GetAllRecipes = query({
+    handler: async (ctx, args) => {
+      const result = await ctx.db.query('recipes').collect();
+      return result;
+    }
+  });
+  
