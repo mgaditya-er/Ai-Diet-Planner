@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# 🍽️ AI Diet Planner – Powered by Generative AI
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An intelligent **GenAI-powered mobile app** that generates personalized meal plans and recipes using real-time user data and OpenAI. Built with **React Native**, **Expo**, **Convex**, and **OpenAI**, this app empowers users to achieve their health goals through AI-driven insights and automation.
 
-## Get started
+---
 
-1. Install dependencies
+## 🧠 Powered by Generative AI
 
-   ```bash
-   npm install
-   ```
+This project leverages **Generative AI (GenAI)** to create dynamic, user-specific content:
 
-2. Start the app
+- 🔄 AI-generated meal plans based on real-time profile data (weight, height, fitness goal)
+- 🧠 Intelligent recipe suggestions using OpenAI, based on available ingredients
+- 📊 Auto-updating calorie and nutrition tracking
+- ⚙️ Serverless backend with live data sync using Convex
 
-   ```bash
-    npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🚀 Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- 🔐 **Secure Authentication**  
+  User login/signup with personalized access.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- 👤 **User Profile with AI Credits**  
+  Every user gets 10 credits to generate recipes using AI — encouraging smart usage and control.
 
-## Get a fresh project
+- 🧬 **Personalized Nutrition Planning**  
+  Tailored diet suggestions based on individual body metrics and goals (Muscle Gain, Weight Loss, Weight Gain).
 
-When you're ready, run:
+- 📊 **Calorie & Progress Tracking**  
+  Daily progress tracking of calories, protein, and meals.
 
-```bash
-npm run reset-project
-```
+- 🍽️ **GenAI Recipe Generation**  
+  Input your available ingredients — our GenAI engine creates recipes that are easy, healthy, and goal-aligned.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- 📋 **Detailed Recipe View**  
+  See recipe name, ingredients, cook time, calories, protein, and nutritional values.
 
-## Learn more
+- ➕ **Add to Today's Meal List**  
+  Seamlessly add AI-generated recipes to your daily meal plan to monitor intake.
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 🛠 Tech Stack
 
-## Join the community
+- **React Native + Expo** – Cross-platform mobile UI
+- **Convex** – Serverless backend and real-time database
+- **OpenAI API (Generative AI)** – Recipe and nutrition plan generation
+- **Eraser.io** – Collaborative documentation and planning
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🖼️ Screenshots
+
+*Coming Soon*
+
+---
